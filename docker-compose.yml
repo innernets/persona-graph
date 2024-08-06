@@ -1,0 +1,23 @@
+version: '3.9'
+services:
+  neo4j:
+    container_name: innernet-neo4j
+    image: neo4j:latest
+    restart: always
+    environment:
+      NEO4J_AUTH: neo4j/passwordz
+    ports:
+      - "7474:7474"  # HTTP
+      - "7687:7687"  # Bolt
+    volumes:
+      - ./neo4j-data:/data
+  
+  app:
+    container_name: innernet-app
+    build: .
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - neo4j
