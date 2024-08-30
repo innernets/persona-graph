@@ -19,7 +19,7 @@ At Innernet, we believe in a future where digital interactions are seamlessly pe
 
 1. Clone the repository:
    ```
-   git clone https://github.com/innernet-io/user-memory.git
+   git clone https://github.com/innernets/persona-graph.git
    cd user-memory
    ```
 
