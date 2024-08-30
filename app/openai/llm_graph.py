@@ -7,6 +7,7 @@ from app.config import config
 import instructor
 from instructor import OpenAISchema
 from pydantic import Field
+from app.utils.instructions_reader import INSTRUCTIONS
 
 # Initialize the OpenAI client globally if not already set up elsewhere in your application
 openai_client = openai.AsyncOpenAI(api_key=config.MACHINE_LEARNING.OPENAI_KEY)
@@ -30,11 +31,12 @@ async def get_entities(text: str) -> Dict[str, List[str]]:
     Extract entities from provided text using OpenAI's language model.
     """
     try:
+        combined_instructions = f"App Objective: {INSTRUCTIONS}\n\nEntity Extraction Task: {GET_ENTITIES}"
         response = await openai_client.chat.completions.create(
             model='gpt-3.5-turbo-0125',
             response_format={"type": "json_object"},
             messages=[
-                {"role": "system", "content": GET_ENTITIES},
+                {"role": "system", "content": combined_instructions},
                 {"role": "user", "content": text}
             ],
             temperature=0.5
@@ -57,11 +59,12 @@ async def get_nodes_and_relationships(entities: List[str], graph_context: str) -
     Generate nodes and relationships based on the list of entities and existing graph context using OpenAI's language model.
     """
     entities_str = ', '.join(entities)
+    combined_instructions = f"App Objective: {INSTRUCTIONS}\n\nEntity Extraction Task: {GET_ENTITIES}"
     try:
         response = await client.chat.completions.create(
             model='gpt-4-turbo',
             messages=[
-                {"role": "system", "content": GET_NODES_AND_RELATIONSHIPS},
+                {"role": "system", "content": combined_instructions},
                 {"role": "user", "content": f"Existing Graph Context:\n{graph_context}\n\nNew Entities: {entities_str}"}
                 
             ],
@@ -93,7 +96,7 @@ async def generate_response_with_context(query: str, context: str) -> str:
         model="gpt-3.5-turbo",
         messages=[
             {"role": "user", "content": prompt},
-            {"role": "system", "content": "You are a helpful assistant that answers questions based on the provided context."},
+            {"role": "system", "content": "You are a helpful assistant that answers queries about a user based on the provided context from their graph."},
             
         ]
     )
