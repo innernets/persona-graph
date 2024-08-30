@@ -1,6 +1,6 @@
 # Changelog
 
-## [0.1.1] - 2024-08-09
+## [0.1.1] - 2024-08-30
 - Added custom instructions to the app
 - Added example.ipynb to the repo
 
