@@ -60,6 +60,11 @@ curl -X POST "http://localhost:8000/api/v1/ingest/alice123" -H "Content-Type: ap
 curl -X POST "http://localhost:8000/api/v1/rag/alice123/query" -H "Content-Type: application/json" -d '{"query": "What are Alice'\''s hobbies?"}'
 ```
 
+### Examples
+
+See the [examples.ipynb](examples.ipynb) file for a sample product recommendation use case
+Also see the [Concept Note](EderLabs_Innernet_ConceptNote.pdf) for a more detailed overview of the product offering for consumer focused use cases toward a personlised internet. 
+
 ## Supercharging Personalization: Use Cases
 
 1. **E-commerce Product Recommendations**
@@ -73,6 +78,8 @@ curl -X POST "http://localhost:8000/api/v1/rag/alice123/query" -H "Content-Type:
 
 4. **Health and Fitness Applications**
    By tracking a user's exercise routines, dietary preferences, and health goals, Innernet can assist in providing personalized workout plans and nutrition advice that adapts as the user's fitness journey progresses.
+
+
 
 ## Architecture
 
