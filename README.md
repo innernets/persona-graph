@@ -20,12 +20,12 @@ At Innernet, we believe in a future where digital interactions are seamlessly pe
 1. Clone the repository:
    ```
    git clone https://github.com/innernets/persona-graph.git
-   cd user-memory
+   cd innernet-user-memory
    ```
 
 2. Ensure you have Docker and Docker Compose installed on your system.
 
-3. Create a `.env` file in the root directory with the following content:
+3. Create a `.env` file in the app directory with the following content:
    ```
    NEO4J_URI=neo4j://neo4j:7687
    NEO4J_USER=neo4j

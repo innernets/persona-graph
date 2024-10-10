@@ -10,6 +10,7 @@ from pydantic import Field
 from app.utils.instructions_reader import INSTRUCTIONS
 
 # Initialize the OpenAI client globally if not already set up elsewhere in your application
+print(f"OpenAI Key: {config.MACHINE_LEARNING.OPENAI_KEY}")
 openai_client = openai.AsyncOpenAI(api_key=config.MACHINE_LEARNING.OPENAI_KEY)
 client = instructor.from_openai(openai_client)
 
@@ -32,6 +33,7 @@ async def get_entities(text: str) -> Dict[str, List[str]]:
     """
     try:
         combined_instructions = f"App Objective: {INSTRUCTIONS}\n\nEntity Extraction Task: {GET_ENTITIES}"
+        print("Open AI key ", config.MACHINE_LEARNING.OPENAI_KEY)
         response = await openai_client.chat.completions.create(
             model='gpt-3.5-turbo-0125',
             response_format={"type": "json_object"},
@@ -49,6 +51,9 @@ async def get_entities(text: str) -> Dict[str, List[str]]:
         return entities
     except json.JSONDecodeError as e:
         print(f"Error decoding JSON: {e}")
+        return {"entities": []}
+    except openai.error.AuthenticationError as e:
+        print(f"OpenAI Authentication Error: {e}")
         return {"entities": []}
     except Exception as e:
         print(f"Error while extracting entities: {e}")
@@ -76,6 +81,9 @@ async def get_nodes_and_relationships(entities: List[str], graph_context: str) -
         print(f"Generated nodes: {nodes}")
         print(f"Generated relationships: {relationships}")
         return nodes, relationships
+    except openai.error.AuthenticationError as e:
+        print(f"OpenAI Authentication Error: {e}")
+        return GraphResponse(nodes=[], relationships=[])
     except Exception as e:
         print(f"Error while generating nodes and relationships: {e}")
         return GraphResponse(nodes=[], relationships=[])

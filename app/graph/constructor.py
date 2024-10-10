@@ -71,6 +71,9 @@ class GraphConstructor:
     async def get_entire_graph_context(self) -> str:
         nodes = await self.graph_ops.get_all_nodes(self.user_id)
         relationships = await self.graph_ops.get_all_relationships(self.user_id)
+       
+        print (nodes)
+        print (relationships)
         
         context = "# Current Knowledge Graph\n\n## Nodes\n"
         for node in nodes:
