@@ -62,8 +62,9 @@ curl -X POST "http://localhost:8000/api/v1/rag/alice123/query" -H "Content-Type:
 
 ### Examples
 
-See the [examples.ipynb](examples.ipynb) file for a sample product recommendation use case
-Also see the [Concept Note](EderLabs_Innernet_ConceptNote.pdf) for a more detailed overview of the product offering for consumer focused use cases toward a personlised internet. 
+See the [examples.ipynb](examples.ipynb) file for a sample product recommendation use case. 
+
+Also see the [Concept Note](EderLabs_Innernet_ConceptNote.pdf) for a more detailed overview of the product offering for consumer focused use cases toward a personalised internet. 
 
 ## Supercharging Personalization: Use Cases
 
